@@ -1,0 +1,1283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#11120f">
+  <meta name="description" content="Discover destinations, mountain viewpoints, waterfalls, heritage sites and travel experiences across Himachal Pradesh and India with OTXS.">
+  <title>Destination Explorer | OTXS</title>
+  <style>
+    :root {
+      --bg: #11120f;
+      --panel: #1b1d18;
+      --panel2: #22241e;
+      --text: #f5f3eb;
+      --muted: #a5a798;
+      --orange: #ff9f32;
+      --yellow: #ffd166;
+      --border: #34362d;
+      --green: #a8d5a2;
+      --danger: #ff9d8e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button, a, select { -webkit-tap-highlight-color: transparent; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(17,18,15,.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 13px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 1.45rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .brand span { color: var(--orange); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav select {
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      border-radius: 10px;
+      max-width: 190px;
+    }
+
+    .hero {
+      padding: 68px 20px 48px;
+      background:
+        radial-gradient(ellipse at 80% 10%, rgba(255,159,50,.14), transparent 42%),
+        radial-gradient(ellipse at 10% 80%, rgba(255,209,102,.07), transparent 38%);
+    }
+
+    .hero-inner, main, footer {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--yellow);
+      background: rgba(255,209,102,.09);
+      border: 1px solid rgba(255,209,102,.2);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(2.35rem, 6vw, 4.5rem);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      margin: 20px 0 16px;
+    }
+
+    h1 span {
+      color: var(--orange);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      font-size: 1.06rem;
+    }
+
+    .search-wrap {
+      display: flex;
+      gap: 10px;
+      max-width: 760px;
+      margin-top: 28px;
+    }
+
+    .search-wrap input {
+      flex: 1;
+      min-width: 0;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--orange);
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      background: var(--orange);
+      color: #211609;
+      border: 1px solid var(--orange);
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .15s, opacity .15s;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn.secondary {
+      background: var(--panel2);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--muted);
+      border-color: var(--border);
+    }
+
+    .btn.small {
+      padding: 7px 10px;
+      font-size: .86rem;
+    }
+
+    main { padding: 0 20px 50px; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 0 0 35px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 17px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.65rem;
+      color: var(--yellow);
+    }
+
+    .stat span {
+      font-size: .87rem;
+      color: var(--muted);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: -.6px;
+    }
+
+    .subtext { color: var(--muted); margin: 5px 0 0; }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr auto;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .filters input, .filters select {
+      min-width: 0;
+      width: 100%;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 12px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 16px 0 22px;
+    }
+
+    .chip {
+      background: var(--panel);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: .88rem;
+    }
+
+    .chip.active {
+      background: rgba(255,159,50,.12);
+      border-color: var(--orange);
+      color: var(--yellow);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .destination {
+      min-width: 0;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .18s, transform .18s;
+    }
+
+    .destination:hover {
+      border-color: #6a5537;
+      transform: translateY(-3px);
+    }
+
+    .visual {
+      height: 155px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(255,209,102,.16), transparent 60%),
+        linear-gradient(35deg, #343c30, #20251e 65%, #4b3825);
+    }
+
+    .visual::before {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 170px;
+      left: -30px;
+      bottom: -105px;
+      background: #59644b;
+      border-radius: 50% 50% 0 0;
+      transform: rotate(-12deg);
+    }
+
+    .visual::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 160px;
+      right: -55px;
+      bottom: -110px;
+      background: #333e32;
+      border-radius: 50% 50% 0 0;
+      transform: rotate(18deg);
+    }
+
+    .visual .emoji {
+      z-index: 1;
+      font-size: 3.4rem;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,.25));
+    }
+
+    .visual .region {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      font-size: .75rem;
+      background: rgba(17,18,15,.83);
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--yellow);
+    }
+
+    .favorite {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      z-index: 2;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(17,18,15,.85);
+      color: white;
+      border: 1px solid #57594e;
+      cursor: pointer;
+      font-size: 1.15rem;
+    }
+
+    .favorite.saved { color: #ff8b82; }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-body h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 10px 0;
+    }
+
+    .tag {
+      font-size: .75rem;
+      color: var(--muted);
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .card-body p {
+      font-size: .92rem;
+      color: #c3c4b8;
+      margin: 0 0 15px;
+      flex: 1;
+    }
+
+    .best-time {
+      font-size: .82rem;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 45px 20px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+    }
+
+    .callout {
+      margin-top: 42px;
+      padding: 25px;
+      background: linear-gradient(120deg, rgba(255,159,50,.12), rgba(255,209,102,.04));
+      border: 1px solid #4b3c27;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .callout p { color: var(--muted); margin: 6px 0 0; }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .tool {
+      padding: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .tool strong { display: block; margin-bottom: 4px; }
+    .tool span { color: var(--muted); font-size: .86rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 20px 35px;
+      color: var(--muted);
+      font-size: .87rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    footer a { color: var(--yellow); }
+
+    .notice {
+      font-size: .82rem;
+      color: var(--muted);
+      margin: 16px 0 0;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .nav { padding: 12px 14px; }
+      .brand { font-size: 1.25rem; }
+      .nav select { max-width: 155px; font-size: .82rem; }
+      .hero { padding: 48px 16px 35px; }
+      h1 { letter-spacing: -1.3px; }
+      main { padding: 0 14px 35px; }
+      .search-wrap { flex-direction: column; }
+      .stats { gap: 8px; }
+      .stat { padding: 12px; }
+      .stat strong { font-size: 1.35rem; }
+      .stat span { font-size: .75rem; }
+      .grid { grid-template-columns: 1fr; }
+      .visual { height: 170px; }
+      .filters { grid-template-columns: 1fr; }
+      .tools { grid-template-columns: 1fr 1fr; }
+      .callout { padding: 19px; }
+      footer { padding: 22px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="https://home.otxs.de" aria-label="OTXS Home">OT<span>XS</span></a>
+      <div class="nav-right">
+        <select id="appNav" aria-label="Explore OTXS apps">
+          <option value="">Explore OTXS</option>
+          <option value="https://home.otxs.de">OTXS Home</option>
+          <option value="https://trave.otxs.de">Travel</option>
+          <option value="https://adventure.otxs.de">Adventure</option>
+          <option value="https://stays.otxs.de">Stays</option>
+          <option value="https://ride-companion.otxs.de">Ride Companion</option>
+          <option value="https://planner.otxs.de">Trip Planner</option>
+          <option value="https://routes.otxs.de">Route Finder</option>
+          <option value="https://budget.otxs.de">Budget Planner</option>
+          <option value="https://wishlist.otxs.de">Places Wishlist</option>
+          <option value="https://apps.otxs.de">All Apps</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">OTXS · DISCOVER AND EXPLORE</span>
+      <h1>Find your next <span>escape.</span></h1>
+      <p>
+        Explore mountain towns, scenic viewpoints, waterfalls, heritage sites
+        and memorable places. Start in Himachal Pradesh, then discover more
+        destinations across India.
+      </p>
+      <form class="search-wrap" id="heroSearch">
+        <input id="search" type="search" placeholder="Search places, regions or experiences..." aria-label="Search destinations">
+        <button class="btn" type="submit">Explore places ↗</button>
+      </form>
+    </div>
+  </section>
+
+  <main>
+    <section class="stats" aria-label="Destination Explorer statistics">
+      <div class="stat"><strong id="placeCount">0</strong><span>Places to explore</span></div>
+      <div class="stat"><strong id="regionCount">0</strong><span>Regions represented</span></div>
+      <div class="stat"><strong id="savedCount">0</strong><span>Your saved places</span></div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <div>
+          <h2>Explore destinations</h2>
+          <p class="subtext">Choose a place that fits your next journey.</p>
+        </div>
+        <button id="savedOnly" class="btn secondary" type="button">♡ Saved places</button>
+      </div>
+
+      <div class="filters">
+        <input id="regionSearch" type="search" placeholder="Search destination or region..." aria-label="Filter by region">
+        <select id="regionFilter" aria-label="Filter by region">
+          <option value="all">All regions</option>
+        </select>
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="all">All experiences</option>
+          <option value="Nature">Nature & viewpoints</option>
+          <option value="Waterfall">Waterfalls</option>
+          <option value="Heritage">Heritage & culture</option>
+          <option value="Town">Towns & villages</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Spiritual">Spiritual places</option>
+        </select>
+        <button id="resetFilters" class="btn ghost" type="button">Reset</button>
+      </div>
+
+      <div class="chips" id="quickFilters">
+        <button class="chip active" data-region="all" type="button">All places</button>
+        <button class="chip" data-region="Solan" type="button">Solan & nearby</button>
+        <button class="chip" data-region="Shimla" type="button">Shimla region</button>
+        <button class="chip" data-region="Kullu" type="button">Kullu region</button>
+        <button class="chip" data-region="Kangra" type="button">Kangra region</button>
+        <button class="chip" data-region="all" data-category="Waterfall" type="button">Waterfalls</button>
+        <button class="chip" data-region="all" data-category="Adventure" type="button">Adventure</button>
+      </div>
+
+      <div id="resultsLabel" class="subtext" aria-live="polite" style="margin-bottom:14px"></div>
+      <div id="destinationGrid" class="grid"></div>
+
+      <p class="notice">
+        Travel note: access, road conditions, opening hours and seasonal suitability
+        can change. Check local updates before travelling, especially in mountain
+        and remote areas. Destination listings are informational, not live availability.
+      </p>
+    </section>
+
+    <section class="callout">
+      <div>
+        <h2>Turn discovery into a trip.</h2>
+        <p>Save a destination, plan your route and estimate your travel costs.</p>
+      </div>
+      <a class="btn" href="https://planner.otxs.de">Start planning ↗</a>
+    </section>
+
+    <section style="margin-top:35px">
+      <div class="section-heading">
+        <div>
+          <h2>Your journey, your tools</h2>
+          <p class="subtext">Continue with other OTXS travel services.</p>
+        </div>
+      </div>
+      <div class="tools">
+        <a class="tool" href="https://planner.otxs.de">
+          <strong>Trip Planner ↗</strong>
+          <span>Organise days, stops and activities.</span>
+        </a>
+        <a class="tool" href="https://routes.otxs.de">
+          <strong>Route Finder ↗</strong>
+          <span>Arrange stops and open directions.</span>
+        </a>
+        <a class="tool" href="https://budget.otxs.de">
+          <strong>Budget Planner ↗</strong>
+          <span>Plan spending for your journey.</span>
+        </a>
+        <a class="tool" href="https://wishlist.otxs.de">
+          <strong>Places Wishlist ↗</strong>
+          <span>Keep track of places you want to visit.</span>
+        </a>
+        <a class="tool" href="https://stays.otxs.de">
+          <strong>Find a Stay ↗</strong>
+          <span>Explore accommodation options.</span>
+        </a>
+        <a class="tool" href="https://ride-companion.otxs.de">
+          <strong>Ride Companion ↗</strong>
+          <span>Explore motorcycle ride options.</span>
+        </a>
+        <a class="tool" href="https://adventure.otxs.de">
+          <strong>Adventure ↗</strong>
+          <span>Discover outdoor experiences.</span>
+        </a>
+        <a class="tool" href="https://apps.otxs.de">
+          <strong>All OTXS Apps ↗</strong>
+          <span>Explore the complete app directory.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong style="color:var(--text)">OTXS</strong> · Discover and Explore</div>
+    <div>
+      <a href="https://otxs.de">OTXS</a> ·
+      <a href="https://home.otxs.de">Home</a> ·
+      <a href="https://apps.otxs.de">All Apps</a>
+    </div>
+    <div>© <span id="year"></span> OTXS</div>
+  </footer>
+
+  <script>
+    const destinations = [
+      {
+        id: "solan",
+        name: "Solan",
+        region: "Solan",
+        state: "Himachal Pradesh",
+        category: "Town",
+        emoji: "🏘️",
+        difficulty: "Easy",
+        bestTime: "Spring to autumn",
+        description: "A convenient base for exploring hill scenery, local markets, nearby temples and short excursions.",
+        searchTerms: "town market hills mushroom city",
+        map: "Solan Himachal Pradesh"
+      },
+      {
+        id: "ashwini-khad",
+        name: "Ashwini Khad",
+        region: "Solan",
+        state: "Himachal Pradesh",
+        category: "Nature",
+        emoji: "🌊",
+        difficulty: "Moderate",
+        bestTime: "Check local conditions",
+        description: "A natural stream and valley area near Solan. Check access, weather and water levels before visiting.",
+        searchTerms: "stream river valley nature water",
+        map: "Ashwini Khad Solan Himachal Pradesh"
+      },
+      {
+        id: "barog",
+        name: "Barog",
+        region: "Solan",
+        state: "Himachal Pradesh",
+        category: "Nature",
+        emoji: "🌲",
+        difficulty: "Easy",
+        bestTime: "Spring to autumn",
+        description: "A quiet hill stop known for pine-covered surroundings, mountain views and the historic railway area.",
+        searchTerms: "pine forest railway hill station",
+        map: "Barog Himachal Pradesh"
+      },
+      {
+        id: "chail",
+        name: "Chail",
+        region: "Shimla",
+        state: "Himachal Pradesh",
+        category: "Town",
+        emoji: "🌄",
+        difficulty: "Easy",
+        bestTime: "March to June, September to November",
+        description: "A peaceful hill destination with forest roads, viewpoints and heritage attractions.",
+        searchTerms: "forest palace cricket ground",
+        map: "Chail Himachal Pradesh"
+      },
+      {
+        id: "shimla",
+        name: "Shimla",
+        region: "Shimla",
+        state: "Himachal Pradesh",
+        category: "Town",
+        emoji: "🏔️",
+        difficulty: "Easy",
+        bestTime: "March to June, September to November",
+        description: "A classic hill town with heritage streets, viewpoints, markets and access to surrounding mountain areas.",
+        searchTerms: "mall road ridge heritage shopping",
+        map: "Shimla Himachal Pradesh"
+      },
+      {
+        id: "kufri",
+        name: "Kufri",
+        region: "Shimla",
+        state: "Himachal Pradesh",
+        category: "Adventure",
+        emoji: "❄️",
+        difficulty: "Easy to moderate",
+        bestTime: "Check seasonal conditions",
+        description: "A popular outing from Shimla for mountain scenery and seasonal outdoor activities.",
+        searchTerms: "snow mountains skiing outdoor",
+        map: "Kufri Himachal Pradesh"
+      },
+      {
+        id: "tattapani",
+        name: "Tattapani",
+        region: "Shimla",
+        state: "Himachal Pradesh",
+        category: "Nature",
+        emoji: "♨️",
+        difficulty: "Easy",
+        bestTime: "Check river and road conditions",
+        description: "A riverside destination known for hot springs and scenic surroundings near the Sutlej.",
+        searchTerms: "hot spring river sutlej",
+        map: "Tattapani Shimla Himachal Pradesh"
+      },
+      {
+        id: "kasauli",
+        name: "Kasauli",
+        region: "Solan",
+        state: "Himachal Pradesh",
+        category: "Town",
+        emoji: "🌳",
+        difficulty: "Easy",
+        bestTime: "March to June, September to November",
+        description: "A small hill town for forest walks, colonial-era architecture and relaxed weekend outings.",
+        searchTerms: "heritage church walking trail",
+        map: "Kasauli Himachal Pradesh"
+      },
+      {
+        id: "dagshai",
+        name: "Dagshai",
+        region: "Solan",
+        state: "Himachal Pradesh",
+        category: "Heritage",
+        emoji: "🏛️",
+        difficulty: "Easy",
+        bestTime: "Spring to autumn",
+        description: "A historic hill settlement with old buildings, quiet lanes and views over the surrounding hills.",
+        searchTerms: "history cantonment old buildings",
+        map: "Dagshai Himachal Pradesh"
+      },
+      {
+        id: "jwala-devi",
+        name: "Jwala Ji Temple",
+        region: "Kangra",
+        state: "Himachal Pradesh",
+        category: "Spiritual",
+        emoji: "🛕",
+        difficulty: "Easy",
+        bestTime: "Outside peak festival crowds",
+        description: "A renowned temple destination in Kangra district. Check temple guidance and local travel conditions.",
+        searchTerms: "temple pilgrimage goddess",
+        map: "Jwala Ji Temple Himachal Pradesh"
+      },
+      {
+        id: "dharamshala",
+        name: "Dharamshala",
+        region: "Kangra",
+        state: "Himachal Pradesh",
+        category: "Town",
+        emoji: "🏞️",
+        difficulty: "Easy",
+        bestTime: "March to June, September to November",
+        description: "A mountain destination combining Tibetan culture, cafes, monasteries and trails.",
+        searchTerms: "tibetan culture cafes monastery",
+        map: "Dharamshala Himachal Pradesh"
+      },
+      {
+        id: "mcleodganj",
+        name: "McLeod Ganj",
+        region: "Kangra",
+        state: "Himachal Pradesh",
+        category: "Spiritual",
+        emoji: "🙏",
+        difficulty: "Easy to moderate",
+        bestTime: "Spring and autumn",
+        description: "A lively mountain neighbourhood known for Tibetan culture, monasteries, cafes and trekking access.",
+        searchTerms: "monastery tibetan culture trekking",
+        map: "McLeod Ganj Himachal Pradesh"
+      },
+      {
+        id: "bir",
+        name: "Bir Billing",
+        region: "Kangra",
+        state: "Himachal Pradesh",
+        category: "Adventure",
+        emoji: "🪂",
+        difficulty: "Moderate",
+        bestTime: "Check flying weather and operator availability",
+        description: "A well-known paragliding area with cafes, mountain views and a relaxed traveller community.",
+        searchTerms: "paragliding flying adventure cafe",
+        map: "Bir Billing Himachal Pradesh"
+      },
+      {
+        id: "manali",
+        name: "Manali",
+        region: "Kullu",
+        state: "Himachal Pradesh",
+        category: "Town",
+        emoji: "🏔️",
+        difficulty: "Easy",
+        bestTime: "Spring to early summer, autumn",
+        description: "A major mountain base for riverside walks, nearby villages, snow-season trips and outdoor adventures.",
+        searchTerms: "mountain river town old manali",
+        map: "Manali Himachal Pradesh"
+      },
+      {
+        id: "solang",
+        name: "Solang Valley",
+        region: "Kullu",
+        state: "Himachal Pradesh",
+        category: "Adventure",
+        emoji: "⛷️",
+        difficulty: "Moderate",
+        bestTime: "Depends on snow and activity season",
+        description: "A valley near Manali with seasonal adventure activities and open mountain views.",
+        searchTerms: "snow skiing ropeway adventure",
+        map: "Solang Valley Himachal Pradesh"
+      },
+      {
+        id: "kasol",
+        name: "Kasol",
+        region: "Kullu",
+        state: "Himachal Pradesh",
+        category: "Nature",
+        emoji: "🏕️",
+        difficulty: "Easy to moderate",
+        bestTime: "Spring to autumn",
+        description: "A riverside village used as a base for walks and exploring the Parvati Valley.",
+        searchTerms: "parvati river cafes village",
+        map: "Kasol Himachal Pradesh"
+      },
+      {
+        id: "manikaran",
+        name: "Manikaran Sahib",
+        region: "Kullu",
+        state: "Himachal Pradesh",
+        category: "Spiritual",
+        emoji: "🛕",
+        difficulty: "Easy",
+        bestTime: "Throughout the year, subject to conditions",
+        description: "A Sikh pilgrimage destination in Parvati Valley, known for its gurudwara and hot springs.",
+        searchTerms: "gurudwara hot springs pilgrimage",
+        map: "Manikaran Sahib Himachal Pradesh"
+      },
+      {
+        id: "naggar",
+        name: "Naggar",
+        region: "Kullu",
+        state: "Himachal Pradesh",
+        category: "Heritage",
+        emoji: "🏡",
+        difficulty: "Easy",
+        bestTime: "Spring and autumn",
+        description: "A heritage village with traditional architecture, mountain scenery and access to quieter valley roads.",
+        searchTerms: "castle heritage art village",
+        map: "Naggar Himachal Pradesh"
+      },
+      {
+        id: "kasol-kheerganga",
+        name: "Kheerganga Trek",
+        region: "Kullu",
+        state: "Himachal Pradesh",
+        category: "Adventure",
+        emoji: "🥾",
+        difficulty: "Challenging",
+        bestTime: "Verify trail status before setting out",
+        description: "A popular trekking route in Parvati Valley. Confirm current trail access, weather and local regulations before travelling.",
+        searchTerms: "trek hiking mountain trail",
+        map: "Kheerganga Trek starting point Himachal Pradesh"
+      },
+      {
+        id: "chamba",
+        name: "Chamba",
+        region: "Chamba",
+        state: "Himachal Pradesh",
+        category: "Heritage",
+        emoji: "🏛️",
+        difficulty: "Easy",
+        bestTime: "Spring to autumn",
+        description: "A historic town with temples, traditional architecture and access to scenic mountain valleys.",
+        searchTerms: "heritage temples old town",
+        map: "Chamba Himachal Pradesh"
+      },
+      {
+        id: "dalhousie",
+        name: "Dalhousie",
+        region: "Chamba",
+        state: "Himachal Pradesh",
+        category: "Town",
+        emoji: "🌲",
+        difficulty: "Easy",
+        bestTime: "Spring to autumn",
+        description: "A hill station with forested surroundings, colonial-era character and panoramic views.",
+        searchTerms: "hill station forest views",
+        map: "Dalhousie Himachal Pradesh"
+      },
+      {
+        id: "khajjiar",
+        name: "Khajjiar",
+        region: "Chamba",
+        state: "Himachal Pradesh",
+        category: "Nature",
+        emoji: "🌿",
+        difficulty: "Easy",
+        bestTime: "Spring to autumn",
+        description: "A green meadow surrounded by forest, often visited on trips around Dalhousie and Chamba.",
+        searchTerms: "meadow lake forest grassland",
+        map: "Khajjiar Himachal Pradesh"
+      },
+      {
+        id: "spiti",
+        name: "Spiti Valley",
+        region: "Lahaul & Spiti",
+        state: "Himachal Pradesh",
+        category: "Adventure",
+        emoji: "🏜️",
+        difficulty: "Challenging",
+        bestTime: "Check seasonal road openings",
+        description: "A high-altitude cold-desert region with dramatic landscapes, remote villages and monasteries.",
+        searchTerms: "high altitude cold desert monasteries",
+        map: "Spiti Valley Himachal Pradesh"
+      },
+      {
+        id: "key-monastery",
+        name: "Key Monastery",
+        region: "Lahaul & Spiti",
+        state: "Himachal Pradesh",
+        category: "Spiritual",
+        emoji: "🏯",
+        difficulty: "Moderate",
+        bestTime: "Confirm road and weather conditions",
+        description: "A striking Buddhist monastery in the Spiti Valley, set above the surrounding landscape.",
+        searchTerms: "buddhist monastery spiti",
+        map: "Key Monastery Spiti Himachal Pradesh"
+      },
+      {
+        id: "kasol-waterfall",
+        name: "Jogini Waterfall",
+        region: "Kullu",
+        state: "Himachal Pradesh",
+        category: "Waterfall",
+        emoji: "💧",
+        difficulty: "Moderate",
+        bestTime: "Check trail and weather conditions",
+        description: "A waterfall hike near the Vashisht and Manali area. Allow time for the walk and avoid unsafe conditions.",
+        searchTerms: "waterfall hike trail manali",
+        map: "Jogini Waterfall Manali Himachal Pradesh"
+      },
+      {
+        id: "rewa",
+        name: "Rewalsar Lake",
+        region: "Mandi",
+        state: "Himachal Pradesh",
+        category: "Spiritual",
+        emoji: "🪷",
+        difficulty: "Easy",
+        bestTime: "Spring and autumn",
+        description: "A lakeside pilgrimage destination with Buddhist, Hindu and Sikh places of worship.",
+        searchTerms: "lake monastery temple pilgrimage",
+        map: "Rewalsar Lake Mandi Himachal Pradesh"
+      },
+      {
+        id: "prashar",
+        name: "Prashar Lake",
+        region: "Mandi",
+        state: "Himachal Pradesh",
+        category: "Nature",
+        emoji: "🏞️",
+        difficulty: "Moderate",
+        bestTime: "Check snow and road conditions",
+        description: "A scenic mountain lake with a distinctive temple and wide views across the surrounding ranges.",
+        searchTerms: "lake trek mountain temple",
+        map: "Prashar Lake Himachal Pradesh"
+      },
+      {
+        id: "agra",
+        name: "Agra",
+        region: "Uttar Pradesh",
+        state: "Uttar Pradesh",
+        category: "Heritage",
+        emoji: "🏰",
+        difficulty: "Easy",
+        bestTime: "October to March",
+        description: "A historic city famous for the Taj Mahal and Mughal-era architecture.",
+        searchTerms: "taj mahal history architecture",
+        map: "Taj Mahal Agra India"
+      },
+      {
+        id: "jaipur",
+        name: "Jaipur",
+        region: "Rajasthan",
+        state: "Rajasthan",
+        category: "Heritage",
+        emoji: "🕌",
+        difficulty: "Easy",
+        bestTime: "October to March",
+        description: "Rajasthan's capital, known for forts, palaces, historic markets and distinctive architecture.",
+        searchTerms: "pink city forts palaces markets",
+        map: "Jaipur Rajasthan India"
+      },
+      {
+        id: "rishikesh",
+        name: "Rishikesh",
+        region: "Uttarakhand",
+        state: "Uttarakhand",
+        category: "Adventure",
+        emoji: "🛶",
+        difficulty: "Easy to moderate",
+        bestTime: "Check river and activity conditions",
+        description: "A riverside destination known for yoga, spiritual centres and organised outdoor activities.",
+        searchTerms: "ganga rafting yoga bridge",
+        map: "Rishikesh Uttarakhand India"
+      }
+    ];
+
+    const STORAGE_KEY = "otxs_destination_explorer_v1";
+    const $ = id => document.getElementById(id);
+
+    let saved = loadSaved();
+    let showSavedOnly = false;
+    let quickRegion = "all";
+    let quickCategory = "all";
+
+    function loadSaved() {
+      try {
+        const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(value) ? value : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function persistSaved() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      } catch {
+        alert("Your browser could not save favourites. Check browser storage settings.");
+      }
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function initRegions() {
+      const regions = [...new Set(destinations.map(d => d.region))].sort();
+      $("regionFilter").innerHTML =
+        '<option value="all">All regions</option>' +
+        regions.map(region =>
+          `<option value="${escapeHTML(region)}">${escapeHTML(region)}</option>`
+        ).join("");
+
+      $("placeCount").textContent = destinations.length;
+      $("regionCount").textContent = new Set(destinations.map(d => d.region)).size;
+      $("year").textContent = new Date().getFullYear();
+    }
+
+    function matches(d) {
+      const query = (
+        $("search").value + " " + $("regionSearch").value
+      ).trim().toLowerCase();
+
+      const haystack = [
+        d.name, d.region, d.state, d.category,
+        d.description, d.searchTerms, d.difficulty, d.bestTime
+      ].join(" ").toLowerCase();
+
+      return (!query || haystack.includes(query)) &&
+        ($("regionFilter").value === "all" || d.region === $("regionFilter").value) &&
+        ($("categoryFilter").value === "all" || d.category === $("categoryFilter").value) &&
+        (quickRegion === "all" || d.region === quickRegion) &&
+        (quickCategory === "all" || d.category === quickCategory) &&
+        (!showSavedOnly || saved.includes(d.id));
+    }
+
+    function render() {
+      const list = destinations.filter(matches);
+      $("savedCount").textContent = saved.length;
+      $("resultsLabel").textContent =
+        `Showing ${list.length} of ${destinations.length} destinations`;
+
+      $("savedOnly").textContent = showSavedOnly ? "♥ Showing saved" : "♡ Saved places";
+      $("savedOnly").classList.toggle("active", showSavedOnly);
+
+      $("destinationGrid").innerHTML = list.length ? list.map(d => {
+        const isSaved = saved.includes(d.id);
+        const mapsURL = "https://www.google.com/maps/search/?api=1&query=" +
+          encodeURIComponent(d.map);
+
+        return `
+          <article class="destination">
+            <div class="visual">
+              <span class="region">${escapeHTML(d.region)}</span>
+              <span class="emoji" aria-hidden="true">${d.emoji}</span>
+              <button
+                class="favorite ${isSaved ? "saved" : ""}"
+                type="button"
+                data-fav="${escapeHTML(d.id)}"
+                aria-label="${isSaved ? "Remove from" : "Add to"} saved places"
+                title="${isSaved ? "Remove saved place" : "Save place"}"
+              >${isSaved ? "♥" : "♡"}</button>
+            </div>
+            <div class="card-body">
+              <h3>${escapeHTML(d.name)}</h3>
+              <div class="meta">
+                <span class="tag">${escapeHTML(d.category)}</span>
+                <span class="tag">${escapeHTML(d.difficulty)}</span>
+                <span class="tag">${escapeHTML(d.state)}</span>
+              </div>
+              <p>${escapeHTML(d.description)}</p>
+              <div class="best-time">Best time: ${escapeHTML(d.bestTime)}</div>
+              <div class="card-actions">
+                <a class="btn small" href="${mapsURL}" target="_blank" rel="noopener noreferrer">Open map ↗</a>
+                <button class="btn secondary small" type="button" data-plan="${escapeHTML(d.id)}">Plan a trip</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("") : `
+        <div class="empty">
+          <h3>No destinations found</h3>
+          <p>Try a different search term or clear your filters.</p>
+          <button class="btn secondary" type="button" id="emptyReset">Clear filters</button>
+        </div>
+      `;
+
+      document.querySelectorAll("[data-fav]").forEach(button => {
+        button.addEventListener("click", () => toggleSaved(button.dataset.fav));
+      });
+
+      document.querySelectorAll("[data-plan]").forEach(button => {
+        button.addEventListener("click", () => planDestination(button.dataset.plan));
+      });
+
+      const emptyReset = $("emptyReset");
+      if (emptyReset) emptyReset.addEventListener("click", resetFilters);
+    }
+
+    function toggleSaved(id) {
+      saved = saved.includes(id)
+        ? saved.filter(item => item !== id)
+        : [...saved, id];
+
+      persistSaved();
+      render();
+    }
+
+    function planDestination(id) {
+      const d = destinations.find(item => item.id === id);
+      if (!d) return;
+
+      const destinationText = `${d.name}, ${d.state}`;
+      const encoded = encodeURIComponent(destinationText);
+      const choice = confirm(
+        `Plan a trip to ${destinationText}?\n\n` +
+        `Choose OK to open the OTXS Trip Planner.\n` +
+        `Choose Cancel to view the destination on Google Maps.`
+      );
+
+      if (choice) {
+        window.open(
+          "https://planner.otxs.de/?destination=" + encoded,
+          "_blank",
+          "noopener"
+        );
+      } else {
+        window.open(
+          "https://www.google.com/maps/search/?api=1&query=" + encoded,
+          "_blank",
+          "noopener"
+        );
+      }
+    }
+
+    function resetFilters() {
+      $("search").value = "";
+      $("regionSearch").value = "";
+      $("regionFilter").value = "all";
+      $("categoryFilter").value = "all";
+      showSavedOnly = false;
+      quickRegion = "all";
+      quickCategory = "all";
+      document.querySelectorAll(".chip").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.region === "all" &&
+          !chip.dataset.category);
+      });
+      render();
+    }
+
+    $("heroSearch").addEventListener("submit", event => {
+      event.preventDefault();
+      $("regionSearch").value = "";
+      $("regionFilter").value = "all";
+      quickRegion = "all";
+      quickCategory = "all";
+      showSavedOnly = false;
+      render();
+      document.querySelector("#destinationGrid").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+    ["search", "regionSearch"].forEach(id => {
+      $(id).addEventListener("input", render);
+    });
+
+    ["regionFilter", "categoryFilter"].forEach(id => {
+      $(id).addEventListener("change", () => {
+        quickRegion = "all";
+        quickCategory = "all";
+        document.querySelectorAll(".chip").forEach(chip => {
+          chip.classList.remove("active");
+        });
+        render();
+      });
+    });
+
+    $("quickFilters").addEventListener("click", event => {
+      const chip = event.target.closest("[data-region]");
+      if (!chip) return;
+
+      quickRegion = chip.dataset.region || "all";
+      quickCategory = chip.dataset.category || "all";
+
+      $("regionFilter").value = "all";
+      $("categoryFilter").value = "all";
+
+      document.querySelectorAll(".chip").forEach(item => {
+        item.classList.toggle("active", item === chip);
+      });
+
+      render();
+    });
+
+    $("savedOnly").addEventListener("click", () => {
+      showSavedOnly = !showSavedOnly;
+      render();
+    });
+
+    $("resetFilters").addEventListener("click", resetFilters);
+
+    $("appNav").addEventListener("change", event => {
+      if (event.target.value) window.location.href = event.target.value;
+    });
+
+    initRegions();
+    render();
+  </script>
+</body>
+</html>
+
